@@ -74,7 +74,7 @@ func MarkJobFailed(jb interface{}) error {
 	}
 }
 
-// MarkJobFailed marks a job as done.
+// MarkJobDone marks a job as done.
 func MarkJobDone(jb interface{}) error {
 	switch jb.(type) {
 	case *job:
@@ -133,9 +133,6 @@ func (j *jobber) Publish(jb Job) error {
 		return fmt.Errorf("%v", errNoSubs)
 	}
 
-	// The subscriber channel should be buffered
-	// else it will get block if the worker is not
-	// yet ready for the job
 	if jb.Expired() {
 		return fmt.Errorf("%v", errJobExpired)
 	}
@@ -144,6 +141,9 @@ func (j *jobber) Publish(jb Job) error {
 		return fmt.Errorf("job capacity for this category is full")
 	}
 
+	// The subscriber channel should be buffered
+	// else it will get block if the worker is not
+	// yet ready for the job
 	subscriber <- &job{jb, false, false, j.status}
 
 	return nil
