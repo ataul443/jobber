@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="120ad4d0-a72e-4478-a344-6703a6f62fa9" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="GOROOT" path="/usr/lib/go" />
+  <component name="GoLibraries">
+    <option name="indexEntireGoPath" value="false" />
+  </component>
+  <component name="ProjectId" id="1aiNdSyC8xjyWH1wiF4kXP613Xc" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="go.sdk.automatically.set" value="true" />
+    <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager" selected="Go Test.go test github.com/ataul443/jobber">
+    <configuration name="TestJobCapacityFull in github.com/ataul443/jobber" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="jobber" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/ataul443/jobber" />
+      <pattern value="^TestJobCapacityFull$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestJobFailed in github.com/ataul443/jobber" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="jobber" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/ataul443/jobber" />
+      <pattern value="^TestJobFailed$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestJobShouldFailed in github.com/ataul443/jobber" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="jobber" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/ataul443/jobber" />
+      <pattern value="^TestJobShouldFailed$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestJobShouldNotFailed in github.com/ataul443/jobber" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="jobber" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/ataul443/jobber" />
+      <pattern value="^TestJobShouldNotFailed$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go test github.com/ataul443/jobber" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="jobber" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/ataul443/jobber" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Test.go test github.com/ataul443/jobber" />
+        <item itemvalue="Go Test.TestJobShouldNotFailed in github.com/ataul443/jobber" />
+        <item itemvalue="Go Test.TestJobCapacityFull in github.com/ataul443/jobber" />
+        <item itemvalue="Go Test.TestJobShouldFailed in github.com/ataul443/jobber" />
+        <item itemvalue="Go Test.TestJobFailed in github.com/ataul443/jobber" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="120ad4d0-a72e-4478-a344-6703a6f62fa9" name="Default Changelist" comment="" />
+      <created>1587214541712</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587214541712</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VgoProject">
+    <integration-enabled>true</integration-enabled>
+    <proxy>direct</proxy>
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1278" height="478" key="GridCell.Tab.0.bottom" timestamp="1587220190792">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1278" height="478" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1587220190792" />
+    <state width="1278" height="478" key="GridCell.Tab.0.center" timestamp="1587220190792">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1278" height="478" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1587220190792" />
+    <state width="1278" height="478" key="GridCell.Tab.0.left" timestamp="1587220190791">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1278" height="478" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1587220190791" />
+    <state width="1278" height="478" key="GridCell.Tab.0.right" timestamp="1587220190792">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1278" height="478" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1587220190792" />
+    <state width="1278" height="212" key="GridCell.Tab.1.bottom" timestamp="1587220190783">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1278" height="212" key="GridCell.Tab.1.bottom/0.0.1366.768@0.0.1366.768" timestamp="1587220190783" />
+    <state width="1278" height="212" key="GridCell.Tab.1.center" timestamp="1587220190782">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1278" height="212" key="GridCell.Tab.1.center/0.0.1366.768@0.0.1366.768" timestamp="1587220190782" />
+    <state width="1278" height="212" key="GridCell.Tab.1.left" timestamp="1587220190782">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1278" height="212" key="GridCell.Tab.1.left/0.0.1366.768@0.0.1366.768" timestamp="1587220190782" />
+    <state width="1278" height="212" key="GridCell.Tab.1.right" timestamp="1587220190783">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1278" height="212" key="GridCell.Tab.1.right/0.0.1366.768@0.0.1366.768" timestamp="1587220190783" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/jobber_test.go</url>
+          <line>91</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
