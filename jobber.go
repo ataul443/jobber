@@ -54,48 +54,37 @@ func New(catQueueSize int) Jobber {
 }
 
 // JobFailed returns true if job fails.
-func JobFailed(jb Job) (bool, error) {
-	switch jb.(type) {
-	case *job:
-		return jb.(*job).status(), nil
-	default:
-		return false, fmt.Errorf(errJobNotPublished)
-	}
+func (jb *PendingJob) JobFailed() (bool, error) {
+	return jb.status(), nil
 }
 
 // MarkJobFailed marks a job as failed.
-func MarkJobFailed(jb interface{}) error {
-	switch jb.(type) {
-	case *job:
-		return jb.(*job).markFailed()
-
-	default:
-		return fmt.Errorf(errJobNotPublished)
-	}
+func (jb *PendingJob) MarkJobFailed() error {
+	return jb.markFailed()
 }
 
 // MarkJobDone marks a job as done.
-func MarkJobDone(jb interface{}) error {
-	switch jb.(type) {
-	case *job:
-		return jb.(*job).markDone()
-	default:
-		return fmt.Errorf(errJobNotPublished)
-	}
+func (jb *PendingJob) MarkJobDone() error {
+	return jb.markDone()
 }
 
-type job struct {
+// Payload returns underlying job payload
+func (jb *PendingJob) Payload() Job {
+	return jb.Job
+}
+
+type PendingJob struct {
 	Job
 	failed bool
 	done   bool
 	notify chan<- Job
 }
 
-func (jb job) status() bool {
+func (jb *PendingJob) status() bool {
 	return jb.failed
 }
 
-func (jb *job) markFailed() error {
+func (jb *PendingJob) markFailed() error {
 	if jb.done {
 		return fmt.Errorf("%v", errJobAlreadyDone)
 	}
@@ -104,7 +93,7 @@ func (jb *job) markFailed() error {
 	return nil
 }
 
-func (jb *job) markDone() error {
+func (jb *PendingJob) markDone() error {
 	if jb.done {
 		return fmt.Errorf("%v", errJobAlreadyDone)
 	}
@@ -144,7 +133,7 @@ func (j *jobber) Publish(jb Job) error {
 	// The subscriber channel should be buffered
 	// else it will get block if the worker is not
 	// yet ready for the job
-	subscriber <- &job{jb, false, false, j.status}
+	subscriber <- &PendingJob{jb, false, false, j.status}
 
 	return nil
 
