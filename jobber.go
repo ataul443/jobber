@@ -31,7 +31,7 @@ type Jobber interface {
 
 	// Subscribe returns a channel on which a subscriber
 	// listen for a particular category of job
-	Subscribe(jbCat string) <-chan Job
+	Subscribe(jbCat string) <-chan *PendingJob
 
 	// CancelSubs cancels all the subscription on this job category
 	CancelSubs(jbCat string)
@@ -47,7 +47,7 @@ type Jobber interface {
 // equal to catQueueSize.
 func New(catQueueSize int) Jobber {
 	return &jobber{sync.RWMutex{},
-		make(map[string]chan Job),
+		make(map[string]chan *PendingJob),
 		make(chan Job),
 		catQueueSize,
 	}
@@ -105,7 +105,7 @@ func (jb *PendingJob) markDone() error {
 
 type jobber struct {
 	mu            sync.RWMutex
-	subs          map[string]chan Job
+	subs          map[string]chan *PendingJob
 	status        chan Job
 	cateQueueSize int
 }
@@ -139,11 +139,11 @@ func (j *jobber) Publish(jb Job) error {
 
 }
 
-func (j *jobber) Subscribe(jbCat string) <-chan Job {
+func (j *jobber) Subscribe(jbCat string) <-chan *PendingJob {
 	j.mu.Lock()
 	defer j.mu.Unlock()
 
-	subscriber := make(chan Job, j.cateQueueSize)
+	subscriber := make(chan *PendingJob, j.cateQueueSize)
 	j.subs[jbCat] = subscriber
 	return subscriber
 }
