@@ -33,9 +33,6 @@ type Jobber interface {
 	// listen for a particular category of job
 	Subscribe(jbCat string) <-chan *PendingJob
 
-	// CancelSubs cancels all the subscription on this job category
-	CancelSubs(jbCat string)
-
 	// Close cancels all subscriptions of all category of job
 	Close()
 
@@ -146,20 +143,6 @@ func (j *jobber) Subscribe(jbCat string) <-chan *PendingJob {
 	subscriber := make(chan *PendingJob, j.cateQueueSize)
 	j.subs[jbCat] = subscriber
 	return subscriber
-}
-
-func (j *jobber) CancelSubs(jbCat string) {
-	j.mu.RLock()
-	defer j.mu.RUnlock()
-
-	subscriber, ok := j.subs[jbCat]
-	if !ok {
-		return
-	}
-
-	close(subscriber)
-	delete(j.subs, jbCat)
-
 }
 
 func (j *jobber) Close() {
