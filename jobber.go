@@ -40,7 +40,7 @@ type Jobber interface {
 	Close()
 
 	// Status returns a channel which emits all the processed jobs
-	Status() <-chan Job
+	Status() <-chan *PendingJob
 }
 
 // New returns a jobber object with per ctegory job queue size
@@ -48,7 +48,7 @@ type Jobber interface {
 func New(catQueueSize int) Jobber {
 	return &jobber{sync.RWMutex{},
 		make(map[string]chan *PendingJob),
-		make(chan Job),
+		make(chan *PendingJob, catQueueSize),
 		catQueueSize,
 	}
 }
@@ -77,7 +77,7 @@ type PendingJob struct {
 	Job
 	failed bool
 	done   bool
-	notify chan<- Job
+	notify chan<- *PendingJob
 }
 
 func (jb *PendingJob) status() bool {
@@ -106,7 +106,7 @@ func (jb *PendingJob) markDone() error {
 type jobber struct {
 	mu            sync.RWMutex
 	subs          map[string]chan *PendingJob
-	status        chan Job
+	status        chan *PendingJob
 	cateQueueSize int
 }
 
@@ -150,7 +150,7 @@ func (j *jobber) Subscribe(jbCat string) <-chan *PendingJob {
 
 func (j *jobber) CancelSubs(jbCat string) {
 	j.mu.RLock()
-	defer j.mu.Unlock()
+	defer j.mu.RUnlock()
 
 	subscriber, ok := j.subs[jbCat]
 	if !ok {
@@ -158,6 +158,7 @@ func (j *jobber) CancelSubs(jbCat string) {
 	}
 
 	close(subscriber)
+	delete(j.subs, jbCat)
 
 }
 
@@ -173,6 +174,6 @@ func (j *jobber) Close() {
 
 }
 
-func (j *jobber) Status() <-chan Job {
+func (j *jobber) Status() <-chan *PendingJob {
 	return j.status
 }
