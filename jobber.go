@@ -150,7 +150,7 @@ func (j *jobber) Subscribe(jbCat string) <-chan *PendingJob {
 
 func (j *jobber) CancelSubs(jbCat string) {
 	j.mu.RLock()
-	defer j.mu.Unlock()
+	defer j.mu.RUnlock()
 
 	subscriber, ok := j.subs[jbCat]
 	if !ok {
