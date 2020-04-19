@@ -48,7 +48,7 @@ type Jobber interface {
 func New(catQueueSize int) Jobber {
 	return &jobber{sync.RWMutex{},
 		make(map[string]chan *PendingJob),
-		make(chan *PendingJob),
+		make(chan *PendingJob, catQueueSize),
 		catQueueSize,
 	}
 }
