@@ -158,6 +158,7 @@ func (j *jobber) CancelSubs(jbCat string) {
 	}
 
 	close(subscriber)
+	delete(j.subs, jbCat)
 
 }
 
