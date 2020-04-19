@@ -33,9 +33,6 @@ type Jobber interface {
 	// listen for a particular category of job
 	Subscribe(jbCat string) <-chan *PendingJob
 
-	// CancelSubs cancels all the subscription on this job category
-	CancelSubs(jbCat string)
-
 	// Close cancels all subscriptions of all category of job
 	Close()
 
@@ -49,6 +46,7 @@ func New(catQueueSize int) Jobber {
 	return &jobber{sync.RWMutex{},
 		make(map[string]chan *PendingJob),
 		make(chan *PendingJob, catQueueSize),
+		make(chan struct{}),
 		catQueueSize,
 	}
 }
@@ -75,9 +73,10 @@ func (jb *PendingJob) Payload() Job {
 
 type PendingJob struct {
 	Job
-	failed bool
-	done   bool
-	notify chan<- *PendingJob
+	failed       bool
+	done         bool
+	notify       chan<- *PendingJob
+	jobberClosed <-chan struct{}
 }
 
 func (jb *PendingJob) status() bool {
@@ -89,8 +88,13 @@ func (jb *PendingJob) markFailed() error {
 		return fmt.Errorf("%v", errJobAlreadyDone)
 	}
 	jb.failed = true
-	jb.notify <- jb
-	return nil
+	select {
+	case <-jb.jobberClosed:
+		return nil
+	default:
+		jb.notify <- jb
+		return nil
+	}
 }
 
 func (jb *PendingJob) markDone() error {
@@ -99,14 +103,20 @@ func (jb *PendingJob) markDone() error {
 	}
 	jb.failed = false
 	jb.done = true
-	jb.notify <- jb
-	return nil
+	select {
+	case <-jb.jobberClosed:
+		return nil
+	default:
+		jb.notify <- jb
+		return nil
+	}
 }
 
 type jobber struct {
 	mu            sync.RWMutex
 	subs          map[string]chan *PendingJob
 	status        chan *PendingJob
+	done          chan struct{}
 	cateQueueSize int
 }
 
@@ -133,7 +143,7 @@ func (j *jobber) Publish(jb Job) error {
 	// The subscriber channel should be buffered
 	// else it will get block if the worker is not
 	// yet ready for the job
-	subscriber <- &PendingJob{jb, false, false, j.status}
+	subscriber <- &PendingJob{jb, false, false, j.status, j.done}
 
 	return nil
 
@@ -148,23 +158,11 @@ func (j *jobber) Subscribe(jbCat string) <-chan *PendingJob {
 	return subscriber
 }
 
-func (j *jobber) CancelSubs(jbCat string) {
-	j.mu.RLock()
-	defer j.mu.RUnlock()
-
-	subscriber, ok := j.subs[jbCat]
-	if !ok {
-		return
-	}
-
-	close(subscriber)
-	delete(j.subs, jbCat)
-
-}
-
 func (j *jobber) Close() {
 	j.mu.Lock()
 	defer j.mu.Unlock()
+
+	close(j.done)
 
 	for _, subscriber := range j.subs {
 		close(subscriber)
